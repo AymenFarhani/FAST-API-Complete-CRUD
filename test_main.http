@@ -1,0 +1,26 @@
+### Create a new project
+POST http://localhost:8000/api/project
+Content-Type: application/json
+
+{
+  "title": "FastAPI CRUD",
+  "description": "A simple FastAPI CRUD example",
+  "start_date": "2024-03-15T10:00:00",
+  "status": "In Progress"
+}
+
+### Get all projects
+GET http://localhost:8000/api/projects
+Accept: application/json
+
+### Get a project by ID (Replace {id} with a valid project ID)
+GET http://localhost:8000/project/api/1
+Accept: application/json
+
+### Update a project by ID (Replace {id} with a valid project ID and Valid Project data)
+PUT http://localhost:8000/project/api/1
+Accept: application/json
+
+### Delete a project by ID (Replace {id} with a valid project ID)
+DELETE http://localhost:8000/project/api/1
+Accept: application/json
