@@ -1,13 +1,23 @@
 
 from typing import List
+from urllib.request import Request
 
-from fastapi import Depends, APIRouter, HTTPException
+from fastapi import Depends, APIRouter, HTTPException, Request
 from sqlalchemy.orm import Session
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+
 import database
 import project_service
 import schemas
 
 router = APIRouter()
+
+templates = Jinja2Templates(directory="templates")
+
+@router.get('/home', response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse('home.html', {'request': request})
 
 @router.post('/project', response_model=schemas.ProjectResponse)
 async def create_project(project: schemas.ProjectCreate, db: Session = Depends(database.get_db)):
