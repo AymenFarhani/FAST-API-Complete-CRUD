@@ -24,3 +24,6 @@ Accept: application/json
 ### Delete a project by ID (Replace {id} with a valid project ID)
 DELETE http://localhost:8000/project/api/1
 Accept: application/json
+
+### export all projects in excel format
+GET http://localhost:8000/api/export
