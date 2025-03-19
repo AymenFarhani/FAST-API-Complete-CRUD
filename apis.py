@@ -1,13 +1,14 @@
 
 from typing import List
-from urllib.request import Request
 
 from fastapi import Depends, APIRouter, HTTPException, Request
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from starlette.responses import StreamingResponse
 
 import database
+import export_service
 import project_service
 import schemas
 
@@ -48,3 +49,10 @@ async def delete_project(id: int, db: Session = Depends(database.get_db)):
         raise HTTPException(status_code=404, detail="Project not found")
     project_service.delete_project(id, db)
     return {"message": "Project deleted successfully"}
+
+@router.get('/export')
+def export_projects(db: Session = Depends(database.get_db)):
+    excel_file = export_service.export_projects_to_excel(db)
+    return StreamingResponse(excel_file,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": "attachment; filename=projects.xlsx"})
