@@ -27,3 +27,12 @@ Accept: application/json
 
 ### export all projects in excel format
 GET http://localhost:8000/api/export
+
+### create a User
+POST http://localhost:8000/api/user
+
+### get User
+GET http://localhost:8000/api/user
+
+### login for a token
+POST http://localhost:8000/api/token
